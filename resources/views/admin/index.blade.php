@@ -87,11 +87,11 @@
         // ==========================================
         const bankSoal = [
             {
-                judul: "Karakter: Iron Man",
-                clue1: "/images/ironman_1.jpg",
-                clue2: "/images/ironman_2.jpg",
-                siluet: "/images/ironman_siluet.jpg",
-                jawaban: "/images/ironman_asli.jpg"
+                judul: "Karakter: Penyihir",
+                clue1: "/images/clue1.jpeg",
+                clue2: "/images/clue2.jpeg",
+                siluet: "/images/siluet.jpeg",
+                jawaban: "/images/asli.jpeg"
             },
             {
                 judul: "Karakter: Spider-Man",
