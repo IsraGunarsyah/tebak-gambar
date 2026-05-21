@@ -12,9 +12,9 @@
     <script>
     window.Echo = new Echo({
     broadcaster: 'pusher',
-    key: '61986c81fb9cda8437d6', // Pastikan ini terisi string kunci Pusher Anda
-    cluster: 'ap1',           // Pastikan sesuai dengan cluster di Pusher
-    forceTLS: true            // Wajib true agar pakai 'wss://' (aman)
+    key: '61986c81fb9cda8437d6', // Kunci Pusher Anda
+    cluster: 'ap1',
+    forceTLS: true
 });
     </script>
 </head>
@@ -26,7 +26,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            Echo.channel('quiz-channel').listen('GameStateChanged', (e) => {
+            Echo.channel('quiz-channel').listen('.GameStateChanged', (e) => {
                 let statusText = document.getElementById('status-text');
 
                 if (e.state === 'BUZZER_OPEN') {
