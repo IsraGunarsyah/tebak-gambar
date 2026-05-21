@@ -10,67 +10,11 @@
     <script src="https://cdn.jsdelivr.net/npm/laravel-echo@1.16.1/dist/echo.iife.js"></script>
 
     <script>
-    window.Echo = new Echo({
-    broadcaster: 'pusher',
-    key: '61986c81fb9cda8437d6', // Kunci Pusher Anda
-    cluster: 'ap1',
-    forceTLS: true
-});
-    </script>
-</head>
-<body class="bg-black text-white h-screen flex flex-col items-center justify-center overflow-hidden">
-
-    <h1 id="status-text" class="text-6xl font-bold text-gray-400 uppercase tracking-widest text-center mt-8">
-        BERSIAPLAH!
-    </h1>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            Echo.channel('quiz-channel').listen('.GameStateChanged', (e) => {
-                let statusText = document.getElementById('status-text');
-
-                if (e.state === 'BUZZER_OPEN') {
-                    statusText.innerText = "TEBAK SEKARANG!";
-                    statusText.className = "text-6xl font-bold text-blue-500 uppercase tracking-widest text-center animate-pulse mt-8";
-                }
-                else if (e.state === 'MANUAL_MODE') {
-                    statusText.innerText = "ANGKAT TANGANMU!";
-                    statusText.className = "text-6xl font-bold text-yellow-500 uppercase tracking-widest text-center mt-8";
-                }
-                else if (e.state === 'STANDBY') {
-                    statusText.innerText = "BERSIAPLAH!";
-                    statusText.className = "text-6xl font-bold text-gray-400 uppercase tracking-widest text-center mt-8";
-                }
-                else if (e.state === 'WE_HAVE_A_WINNER') {
-                    statusText.innerHTML = "PEMENANG TERCEPAT:<br><span class='text-8xl text-green-500'>" + e.data.winner + "</span>";
-                    statusText.className = "text-5xl font-bold text-white uppercase tracking-widest text-center animate-bounce mt-8";
-                }
-            });
-        });
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Videotron Display</title>
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/laravel-echo@1.16.1/dist/echo.iife.js"></script>
-
-    <script>
-        window.Pusher = Pusher;
         window.Echo = new Echo({
-            broadcaster: 'reverb',
-            key: '{{ env("REVERB_APP_KEY") }}',
-            wsHost: window.location.hostname,
-            wsPort: {{ env("REVERB_SERVER_PORT", 8080) }},
-            wssPort: {{ env("REVERB_SERVER_PORT", 8080) }},
-            forceTLS: false,
-            enabledTransports: ['ws', 'wss'],
+            broadcaster: 'pusher',
+            key: '61986c81fb9cda8437d6', // Kunci Pusher Anda
+            cluster: 'ap1',
+            forceTLS: true
         });
     </script>
 </head>
