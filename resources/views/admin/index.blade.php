@@ -174,7 +174,7 @@
             });
 
             // Dengarkan jika ada peserta baru masuk
-            Echo.channel('quiz-channel').listen('GameStateChanged', (e) => {
+            Echo.channel('quiz-channel').listen('.GameStateChanged', (e) => {
                 if (e.state === 'PLAYER_JOINED') {
                     let countElement = document.getElementById('player-count');
                     countElement.innerText = e.data.total;

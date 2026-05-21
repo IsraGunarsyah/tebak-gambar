@@ -86,7 +86,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            Echo.channel('quiz-channel').listen('GameStateChanged', (e) => {
+            Echo.channel('quiz-channel').listen('.GameStateChanged', (e) => {
                 let statusText = document.getElementById('status-text');
                 let imgContainer = document.getElementById('image-container');
                 let charImg = document.getElementById('character-img');

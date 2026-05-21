@@ -82,7 +82,7 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             Echo.channel('quiz-channel')
-                .listen('GameStateChanged', (e) => {
+                .listen('.GameStateChanged', (e) => {
                     if (playerName.trim() === '') return; // Abaikan jika belum masuk
 
                     document.getElementById('btn-buzzer').innerText = 'TEBAK!';
