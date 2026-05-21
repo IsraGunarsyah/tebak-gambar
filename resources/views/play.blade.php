@@ -11,16 +11,12 @@
     <script src="https://cdn.jsdelivr.net/npm/laravel-echo@1.16.1/dist/echo.iife.js"></script>
 
     <script>
-        window.Pusher = Pusher;
-        window.Echo = new Echo({
-            broadcaster: 'reverb',
-            key: '{{ env("REVERB_APP_KEY") }}',
-            wsHost: window.location.hostname,
-            wsPort: {{ env("REVERB_SERVER_PORT", 8080) }},
-            wssPort: {{ env("REVERB_SERVER_PORT", 8080) }},
-            forceTLS: false,
-            enabledTransports: ['ws', 'wss'],
-        });
+    window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: '61986c81fb9cda8437d6', // Pastikan ini terisi string kunci Pusher Anda
+    cluster: 'ap1',           // Pastikan sesuai dengan cluster di Pusher
+    forceTLS: true            // Wajib true agar pakai 'wss://' (aman)
+});
     </script>
 </head>
 <body class="bg-gray-900 text-white h-screen flex flex-col items-center justify-center overflow-hidden">
