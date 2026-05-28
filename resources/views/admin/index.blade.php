@@ -4,30 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - Bionic Quiz</title>
-
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/laravel-echo@1.16.1/dist/echo.iife.js"></script>
 
     <script>
-    window.Echo = new Echo({
-    broadcaster: 'pusher',
-    key: '61986c81fb9cda8437d6', // Pastikan ini terisi string kunci Pusher Anda
-    cluster: 'ap1',           // Pastikan sesuai dengan cluster di Pusher
-    forceTLS: true            // Wajib true agar pakai 'wss://' (aman)
-});
+        window.Echo = new Echo({
+            broadcaster: 'pusher',
+            key: '61986c81fb9cda8437d6',
+            cluster: 'ap1',
+            forceTLS: true
+        });
     </script>
 </head>
 <body class="bg-gray-100 p-10 font-sans">
 
     <div class="max-w-4xl mx-auto bg-white p-8 rounded-xl shadow-lg">
-        <h1 class="text-3xl font-bold border-b pb-4 mb-6 text-gray-800">Panel Kendali MC / Operator</h1>
+        <h1 class="text-3xl font-bold border-b pb-4 mb-6 text-gray-800">Panel Kendali MC / Operator BIGER</h1>
 
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
             <button onclick="setMode('STANDBY')" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-6 px-4 rounded-lg shadow">
-                1. Mode Standby
-                <span class="block text-sm font-normal mt-1">(Peserta Menunggu)</span>
+                1. Kunci HP Peserta
+                <span class="block text-sm font-normal mt-1">(Mode Standby)</span>
             </button>
 
             <button onclick="setMode('BUZZER_OPEN')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-6 px-4 rounded-lg shadow">
@@ -49,7 +48,7 @@
         <div class="mt-6 p-5 bg-green-50 rounded-xl border border-green-200 flex justify-between items-center shadow-inner">
             <div>
                 <h3 class="text-xl font-bold text-green-800">Peserta di dalam Room</h3>
-                <p class="text-sm text-green-600">Total perangkat yang sudah memasukkan nama.</p>
+                <p class="text-sm text-green-600">Total perangkat yang sudah terhubung.</p>
                 <button onclick="resetRoom()" class="mt-2 text-xs bg-red-100 text-red-600 px-3 py-1 rounded hover:bg-red-200">Kosongkan Room (Reset)</button>
             </div>
             <div class="text-6xl font-black text-green-600" id="player-count">0</div>
@@ -61,59 +60,39 @@
 
                 <div class="flex items-center space-x-4">
                     <button onclick="gantiSoal(-1)" class="bg-gray-600 hover:bg-gray-500 px-4 py-2 rounded font-bold shadow">&laquo; Mundur</button>
-                    <span id="label-soal" class="text-xl font-black text-white bg-gray-900 px-6 py-2 rounded-lg border border-gray-500 shadow-inner">Soal 1 / 5</span>
+                    <span id="label-soal" class="text-xl font-black text-white bg-gray-900 px-6 py-2 rounded-lg border border-gray-500 shadow-inner">Soal 1 / 10</span>
                     <button onclick="gantiSoal(1)" class="bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded font-bold shadow">Lanjut &raquo;</button>
                 </div>
             </div>
 
-            <p id="judul-karakter" class="text-center text-gray-300 mb-4 font-semibold text-lg">Karakter: Spider-Man</p>
+            <p id="judul-karakter" class="text-center text-yellow-300 mb-4 font-black text-2xl">Jawaban: IRON MAN</p>
 
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                <button onclick="tampilkanClue('clue1')" class="bg-gray-600 hover:bg-gray-500 py-4 rounded font-bold shadow-md">1. Tampilkan Clue 1</button>
-                <button onclick="tampilkanClue('clue2')" class="bg-gray-600 hover:bg-gray-500 py-4 rounded font-bold shadow-md">2. Tampilkan Clue 2</button>
-                <button onclick="tampilkanClue('siluet')" class="bg-gray-600 hover:bg-gray-500 py-4 rounded font-bold shadow-md">3. Tampilkan Siluet</button>
-                <button onclick="tampilkanClue('jawaban')" class="bg-green-600 hover:bg-green-500 py-4 rounded font-bold shadow-md ring-2 ring-green-400 text-white">4. Buka JAWABAN!</button>
-            </div>
-
-            <div class="mt-6 pt-4 border-t border-gray-600 text-right">
-                <button onclick="showImage('')" class="text-red-400 hover:text-red-300 underline font-bold">Tutup Gambar (Kembali ke Layar Hitam)</button>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
+                <button onclick="tembakVideotron(0)" class="col-span-full bg-gray-900 hover:bg-black py-4 rounded font-bold shadow-md border border-gray-600 text-gray-300">
+                    Awal Soal (Tutup Semua Clue)
+                </button>
+                <button onclick="tembakVideotron(1)" class="bg-indigo-600 hover:bg-indigo-500 py-4 rounded font-bold shadow-md">Buka Clue 1 + Puzzle</button>
+                <button onclick="tembakVideotron(2)" class="bg-indigo-600 hover:bg-indigo-500 py-4 rounded font-bold shadow-md">Buka Clue 2 + Puzzle</button>
+                <button onclick="tembakVideotron(3)" class="bg-indigo-600 hover:bg-indigo-500 py-4 rounded font-bold shadow-md">Buka Clue 3 + Puzzle</button>
+                <button onclick="tembakVideotron(4)" class="bg-indigo-600 hover:bg-indigo-500 py-4 rounded font-bold shadow-md">Buka Clue 4 + Puzzle</button>
+                <button onclick="tembakVideotron(5)" class="col-span-2 bg-green-600 hover:bg-green-500 py-4 rounded font-bold shadow-md ring-2 ring-green-400 text-white text-xl">🎉 REVEAL JAWABAN BENAR!</button>
             </div>
         </div>
     </div>
 
     <script>
-        // ==========================================
-        // 1. BANK SOAL (Silakan ganti nama file gambar di sini nanti)
-        // ==========================================
         const bankSoal = [
-            {
-                judul: "Karakter: Penyihir",
-                clue1: "/images/clue1.jpeg",
-                clue2: "/images/clue2.jpeg",
-                siluet: "/images/siluet.jpeg",
-                jawaban: "/images/asli.jpeg"
-            },
-            {
-                judul: "Karakter: Spider-Man",
-                clue1: "/images/spidey_1.jpg",
-                clue2: "/images/spidey_2.jpg",
-                siluet: "/images/spidey_siluet.jpg",
-                jawaban: "/images/spidey_asli.jpg"
-            },
-            {
-                judul: "Karakter: Batman",
-                clue1: "/images/batman_1.jpg",
-                clue2: "/images/batman_2.jpg",
-                siluet: "/images/batman_siluet.jpg",
-                jawaban: "/images/batman_asli.jpg"
-            }
+            { answer: "IRON MAN" }, { answer: "QUEEN ELSA" }, { answer: "SPIDER-MAN" },
+            { answer: "BATMAN" }, { answer: "JACK SPARROW" }, { answer: "JOKER" },
+            { answer: "DORAEMON" }, { answer: "HARRY POTTER" }, { answer: "OPTIMUS PRIME" },
+            { answer: "WIRO SABLENG" }
         ];
 
         let indeksSoal = 0;
 
         function perbaruiLayarAdmin() {
             document.getElementById('label-soal').innerText = `Soal ${indeksSoal + 1} / ${bankSoal.length}`;
-            document.getElementById('judul-karakter').innerText = bankSoal[indeksSoal].judul;
+            document.getElementById('judul-karakter').innerText = "Jawaban: " + bankSoal[indeksSoal].answer;
         }
 
         function gantiSoal(arah) {
@@ -121,65 +100,46 @@
             if (indeksBaru >= 0 && indeksBaru < bankSoal.length) {
                 indeksSoal = indeksBaru;
                 perbaruiLayarAdmin();
-                showImage(''); // Kosongkan layar videotron saat pindah soal
+                tembakVideotron(0); // Setel ulang layar ke tertutup
             } else {
-                alert("Sudah mentok di ujung soal!");
+                alert("Sudah di ujung soal!");
             }
         }
 
-        function tampilkanClue(jenisClue) {
-            // 1. Kirim gambar Clue ke layar Videotron
-            let urlGambar = bankSoal[indeksSoal][jenisClue];
-            showImage(urlGambar);
+        // FUNGSI INTI: Kirim instruksi sinkronisasi ke Videotron & HP
+        function tembakVideotron(step) {
+            // 1. Tembak kode ke videotron (contoh: Q_0_STEP_1)
+            let kodeState = `Q_${indeksSoal}_STEP_${step}`;
+            axios.post('/api/set-mode', { mode: kodeState }).catch(err => console.error(err));
 
-            // 2. OTOMATIS BUKA BUZZER
-            if (jenisClue !== 'jawaban') {
-                // Jika yang ditekan adalah Clue 1, Clue 2, atau Siluet:
-                // Langsung munculkan tombol TEBAK di layar HP peserta
-                setMode('BUZZER_OPEN');
-            } else {
-                // Jika yang ditekan adalah tombol "Buka JAWABAN":
-                // Sesi tebak-tebakan soal ini selesai, kembalikan HP peserta ke mode "Tunggu aba-aba"
-                setMode('STANDBY');
+            // 2. Kendalikan HP Peserta secara otomatis berdasar langkahnya
+            if (step >= 1 && step <= 4) {
+                // Beri jeda 0.3 detik agar videotron berubah dulu, baru HP peserta buka tombol BUZZER
+                setTimeout(() => setMode('BUZZER_OPEN'), 300);
+            } else if (step === 5 || step === 0) {
+                // Jika reveal jawaban atau tutup soal, kunci HP peserta
+                setTimeout(() => setMode('STANDBY'), 300);
             }
         }
 
-        // ==========================================
-        // 2. FUNGSI API CONTROLLER
-        // ==========================================
         function setMode(mode) {
             axios.post('/api/set-mode', { mode: mode }).catch(err => console.error(err));
         }
 
         function resetRoom() {
-            if(confirm('Yakin ingin mereset semua jumlah peserta ke 0?')) {
+            if(confirm('Yakin ingin mereset jumlah peserta?')) {
                 axios.post('/api/reset-players');
             }
         }
 
-        function showImage(url) {
-            axios.post('/api/show-image', { image_url: url }).catch(err => console.error(err));
-        }
-
-        // ==========================================
-        // 3. STARTUP & WEBSOCKET LISTENER
-        // ==========================================
         document.addEventListener('DOMContentLoaded', () => {
-            // Set teks bank soal
             perbaruiLayarAdmin();
-
-            // Ambil data jumlah peserta saat ini
             axios.get('/api/get-players').then(res => {
                 document.getElementById('player-count').innerText = res.data.total;
             });
-
-            // Dengarkan jika ada peserta baru masuk
             Echo.channel('quiz-channel').listen('.GameStateChanged', (e) => {
                 if (e.state === 'PLAYER_JOINED') {
-                    let countElement = document.getElementById('player-count');
-                    countElement.innerText = e.data.total;
-                    countElement.classList.add('opacity-50');
-                    setTimeout(() => countElement.classList.remove('opacity-50'), 200);
+                    document.getElementById('player-count').innerText = e.data.total;
                 }
             });
         });
